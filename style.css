@@ -133,7 +133,7 @@ main{
 .products{
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 }
 .product-container{
     padding: 40px 25px 25px 25px;
