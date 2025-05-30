@@ -1,4 +1,6 @@
 import {products} from './products.js';
+import {addToCart} from './cart.js';
+
 
 let productsHTML = '';
 
@@ -26,7 +28,8 @@ products.forEach((product) => {
                 </div>
             
                 <div class="product-quantity-container">
-                    <select>
+                Quantity:
+                    <select class="product-quantity-select js-product-quantity-select" data-product-id="${product.id}">
                         <option selected value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -54,9 +57,41 @@ products.forEach((product) => {
     `;
 });
 
+// update the products section with the generated HTML
 document.querySelector(".products").innerHTML = productsHTML;
 
+// add event listener to cart icon on top of page
 document.getElementById('cart-btn').addEventListener('click', function() {
-    // openning the checkout page in a new tab
+    // openning the checkout page in the same tab,new tab - '_blank'
     window.open('checkout.html', '_self');
 });
+
+//add event listener to all add to cart buttons
+document.querySelectorAll('.js-add-to-cart').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        // get the product ID from the button's data attribute
+        const productId = event.target.getAttribute('data-product-id');
+        
+        // call the addToCart function with the product ID
+        addToCart(productId);
+        
+        // show the added to cart image
+        //const addedToCartMessage = event.target.previousElementSibling;
+       // addedToCartMessage.classList.add('show');
+       const imgEl = document.querySelector('.added-to-cart img');
+       document.querySelector('.added-to-cart').style.display = 'inline-block';
+       imgEl.src = '/Images/checkmark.png';
+       imgEl.style.display = 'inline-block';
+       imgEl.style.transition = 'opacity 0.5s ease-in-out';
+        
+        // hide the message after 2 seconds
+        setTimeout(() => {
+            //addedToCartMessage.classList.remove('show');
+            imgEl.style.display = 'none';
+            document.querySelector(".added-to-cart").style.display = 'none';
+        }, 1500);
+    });
+});
+
+document.querySelector('.cart-quantity').textContent = localStorage.getItem('cartQuantity') || '0';
+// Update the cart quantity in the header
