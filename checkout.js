@@ -1,5 +1,6 @@
 import { cart, removeFromCart, updateCartItemQuantity} from './cart.js';
 import { getProduct} from './products.js';
+import { renderOrderSummary } from './orderSummary.js';
 
 
 document.getElementById("amazon-logo-btn").addEventListener("click", function() {
@@ -50,6 +51,7 @@ export function renderCartItems() {
             removeFromCart(productId);
             updateCartItemQuantity();
             renderCartItems();
+            renderOrderSummary();
         });
     });
     
@@ -57,3 +59,4 @@ export function renderCartItems() {
 
 renderCartItems();
 updateCartItemQuantity();
+renderOrderSummary();

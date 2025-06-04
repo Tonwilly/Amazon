@@ -4,8 +4,8 @@ export function getProduct(productId){
         throw new Error(`Product with ID ${productId} not found.`);
     } else {
         return {
-            ...matchingProduct,
-            price: (matchingProduct.priceCents / 100).toFixed(2),
+            ...matchingProduct
+            
         };
     }
 }
