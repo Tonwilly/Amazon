@@ -1,5 +1,5 @@
 import {products} from './products.js';
-import {addToCart} from './cart.js';
+import {addToCart, cart} from './cart.js';
 
 
 let productsHTML = '';
@@ -76,10 +76,19 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         addToCart(productId);
         
         // show the added to cart image
-        //const addedToCartMessage = event.target.previousElementSibling;
-       // addedToCartMessage.classList.add('show');
-       const imgEl = document.querySelector('.added-to-cart img');
-       document.querySelector('.added-to-cart').style.display = 'inline-block';
+        // the product container of the clicked button, closest parent element
+        const productContainer = event.target.closest('.product-container');
+    // find the added-to-cart element and its image within this container
+    const addedToCartEl = productContainer.querySelector('.added-to-cart');
+    const imgEl = addedToCartEl.querySelector('.added-to-cart img');
+    
+    addedToCartEl.style.display = 'inline-block';
+   // imgEl.src = '/Images/checkmark.png';
+   // imgEl.style.display = 'inline-block';
+   // imgEl.style.transition = 'opacity 0.5s ease-in-out';
+        
+       //const imgEl = document.querySelector('.added-to-cart img');
+       //document.querySelector('.added-to-cart').style.display = 'inline-block';
        imgEl.src = '/Images/checkmark.png';
        imgEl.style.display = 'inline-block';
        imgEl.style.transition = 'opacity 0.5s ease-in-out';
@@ -90,8 +99,19 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
             imgEl.style.display = 'none';
             document.querySelector(".added-to-cart").style.display = 'none';
         }, 1500);
+
+        updateCartQuantity();
+        // update the cart quantity in the header
     });
 });
 
-document.querySelector('.cart-quantity').textContent = localStorage.getItem('cartQuantity') || '0';
-// Update the cart quantity in the header
+function updateCartQuantity() {
+    let cartQuantity = 0;
+    // iterate through the cart and sum up the quantities
+    cart.forEach(item => {
+        cartQuantity += item.quantity;
+    });
+
+    document.querySelector(".cart-quantity").innerHTML = cartQuantity;
+}
+updateCartQuantity();

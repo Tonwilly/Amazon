@@ -1,4 +1,4 @@
-import { cart, removeFromCart,updateCartItemQuantity } from './cart.js';
+import { cart, removeFromCart, updateCartItemQuantity} from './cart.js';
 import { getProduct} from './products.js';
 
 
@@ -48,11 +48,12 @@ export function renderCartItems() {
         button.addEventListener('click', (event) => {
             const productId = event.target.getAttribute('data-product-id');
             removeFromCart(productId);
+            updateCartItemQuantity();
+            renderCartItems();
         });
     });
+    
 }
 
-
-
-
 renderCartItems();
+updateCartItemQuantity();

@@ -38,26 +38,29 @@ export function addToCart(productId) {
 
 // deleting elements from the cart
 export function removeFromCart(productId) {
+    const newCart = [];
+    
     // filter out the item with the given productId
-    cart = cart.filter(cartItem => cartItem.productId !== productId);
+    // cart = cart.filter(cartItem => cartItem.productId !== productId);
+    // or use .forEach to create a new array without the item
+    cart.forEach(cartItem => {
+        if (cartItem.productId !== productId) {
+          newCart.push(cartItem);
+        }
+      });
+
+      cart = newCart;
     
     saveToStorage();
 }
 
 // function to update the quantity of a product in the cart
-export function updateCartItemQuantity(productId, cartQuantity) {
-    // find the item in the cart
-    let matchingItem = cart.find(cartItem => productId === cartItem.productId);
-    
-    // if item is found, update its quantity
-    if (matchingItem) {
-        matchingItem.quantity = cartQuantity;
-    }
+export function updateCartItemQuantity() {
+    let cartQuantity = 0;
 
-    // if quantity is 0, remove the item from the cart
-    if (cartQuantity <= 0) {
-        removeFromCart(productId);
-    } else {
-        saveToStorage();
-    }
+    // iterate through the cart and sum up the quantities   
+    cart.forEach(cartItem => cartQuantity += cartItem.quantity);
+    // update the cart quantity in the header
+    document.querySelector(".number-of-items").innerHTML = `(${cartQuantity} ${cartQuantity === 1 ? 'item' : 'items'})`;
+
 }
