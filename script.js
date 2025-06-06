@@ -55,6 +55,7 @@ products.forEach((product) => {
                 </button>
             </div>
     `;
+
 });
 
 // update the products section with the generated HTML
@@ -115,3 +116,28 @@ function updateCartQuantity() {
     document.querySelector(".cart-quantity").innerHTML = cartQuantity;
 }
 updateCartQuantity();
+
+// search for products
+function searchProducts() {
+    // get the search input value and convert it to lowercase for case-insensitive comparison
+    const searchInput = document.getElementById('search-input').value.toLowerCase();
+    // select all product containers
+    const productContainers = document.querySelectorAll('.product-container');
+
+    // iterate through each product container and check if the product name includes the search input
+    productContainers.forEach(container => {
+        const productName = container.querySelector('.product-name').textContent.toLowerCase();
+        if (productName.includes(searchInput)) {
+            container.style.display = 'block';
+        } else {
+            container.style.display = 'none';
+        }
+    });
+}
+// wait for the DOM to be fully loaded before adding event listeners for cleaner code
+document.addEventListener('DOMContentLoaded', () => {
+    // add event listeners for search input and button
+    document.getElementById('search-input').addEventListener('input', searchProducts);
+    // add event listener to search button
+    document.getElementById('search-input-btn').addEventListener('click', searchProducts);
+  });

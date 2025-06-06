@@ -54,6 +54,27 @@ export function removeFromCart(productId) {
     saveToStorage();
 }
 
+export function updateProductQuantity(productId) {
+    // find the quantity of the product from the quantity select element
+    const quantityInput = document.querySelector(`input[type="number"][data-product-id="${productId}"]`);
+    // parse the value of the quantity input to an integer
+    const productQuantity = parseInt(quantityInput.value, 10);
+
+    // if the quantity is not a number or less than 1, return
+    if (isNaN(productQuantity) || productQuantity < 1) {
+        alert("Please enter a valid quantity.");
+        return;
+    }
+    // find the item in the cart and update its quantity    
+    const cartItem = cart.find(item => item.productId === productId);
+    if (cartItem) {
+        cartItem.quantity = productQuantity;
+    }
+    saveToStorage();
+    updateCartItemQuantity();
+
+}
+
 // function to update the quantity of a product in the cart
 export function updateCartItemQuantity() {
     let cartQuantity = 0;

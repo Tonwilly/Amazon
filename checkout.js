@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateCartItemQuantity} from './cart.js';
+import { cart, removeFromCart, updateCartItemQuantity, updateProductQuantity} from './cart.js';
 import { getProduct} from './products.js';
 import { renderOrderSummary } from './orderSummary.js';
 
@@ -27,7 +27,7 @@ export function renderCartItems() {
                     <div class="item-details">
                         <h4>${product.name}</h4>
                         <div class="cart-item-quantity">
-                        <input type="number" value="${item.quantity}" min="1" data-product-id="${item.productId}">
+                        <input type="number" value="${item.quantity}" min="1" data-product-id="${item.productId}" class="item-quantity-input">
                     </div>
                         <div class="cart-item-price">Price: $${(product.priceCents / 100).toFixed(2)}</div>
                         <div class="item-price">
@@ -49,6 +49,17 @@ export function renderCartItems() {
         button.addEventListener('click', (event) => {
             const productId = event.target.getAttribute('data-product-id');
             removeFromCart(productId);
+            updateCartItemQuantity();
+            renderCartItems();
+            renderOrderSummary();
+        });
+    });
+
+    // add event listeners to update buttons for each cart item
+    document.querySelectorAll('.update-cart-item-btn').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productId = event.target.getAttribute('data-product-id');
+            updateProductQuantity(productId);
             updateCartItemQuantity();
             renderCartItems();
             renderOrderSummary();

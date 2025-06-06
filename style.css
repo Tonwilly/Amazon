@@ -22,14 +22,17 @@ header{
     right: 0;
     color: white;
 }
-.logo img{
+.logo-img{
     width: 100px;
     margin-top: 5px;
     cursor: pointer;
 }
+.logo-img2{
+    display: none;
+}
 .search-bar{
     flex: 1;
-        max-width: 850px;
+        max-width: 60%;
         margin-left: 10px;
         margin-right: 10px;
         display: flex;
@@ -239,4 +242,87 @@ footer{
 body{
     padding: 0;
     margin: 0;
+}
+
+@media (max-width: 770px){
+    .products{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .product-container{
+        padding: 20px 15px 15px 15px;
+    }
+}
+@media (min-width: 770px){
+    .products{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+@media (min-width: 1000px){
+    .products{
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (max-width: 450px){
+    .products{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .product-container{
+        padding: 20px 10px 15px 10px;
+        gap: 8px;
+    }
+    .product-image-container{
+        height: 150px;
+        margin-bottom: 10px;
+    }
+        .product-spacer {
+            height: 10px;
+        }
+    
+        .product-name {
+            height: 30px;
+        }
+    
+        .product-rating-container {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+    
+        .product-rating-stars {
+            width: 90px;
+        }
+    
+        .product-rating-count {
+            font-size: 14px;
+            font-weight: 450;
+            color: rgb(1, 124, 182);
+        }
+    
+        .product-price {
+            font-size: 14px;
+            font-weight: 550;   }
+        .cart-icon{
+            width: 30px;
+        }
+        .cart-quantity {
+            margin: 0;
+            padding: 0;
+            position: relative;
+            top: 14px;
+            right: -13px;
+            font-weight: 550;
+            color: var(--cart-quantity);       
+        }
+        .logo-img {
+            width: 70px;
+            margin-top: 5px;
+            cursor: pointer;  
+            display: none;      
+        }
+        .logo-img2{
+            display: block;
+            width: 40px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
 }
